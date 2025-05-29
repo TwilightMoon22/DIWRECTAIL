@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/dist/output.css" rel="stylesheet" />
-    <script defer src="./assets/fontawesome/js/fontawesome.min.js"></script>
-    <script defer src="./assets/fontawesome/js/solid.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   </head>
   <body class="text-white">
     <main>
@@ -19,7 +18,7 @@
           </div>
           <!-- Menú movil  -->
           <button id="menu-toggle" class="ml-auto mr-4 flex md:hidden text-white text-3xl focus:outline-none">
-            <span class="fas fa-bars"></span>
+            <i class="fas fa-bars"></i>
           </button>
           <!-- Menú normal (desktop) -->
           <div class="relative flex-1 justify-end md:flex hidden" id="main-menu">
@@ -35,12 +34,21 @@
             <div class="menu-item">Support</div>
           </div>
           <!-- Menú móvil -->
-          <div id="mobile-menu" class="fixed top-0 left-0 w-full bg-gradient-to-r from-pink-700 to-pink-400 flex flex-col items-center pt-24 pb-8 space-y-6 text-xl font-bold text-white z-40 transition-all duration-300 md:hidden hidden">
-            <div class="w-full flex flex-col items-center space-y-4">
-              <a href="#" class="block">Home</a>
-              <a href="#" class="block">Lineup</a>
-              <a href="#" class="block">Tickets</a>
-              <a href="#" class="block">Support</a>
+          <div id="mobile-menu" class="absolute top-full left-0 w-full bg-gradient-to-r from-pink-700 to-pink-400 flex flex-col items-center py-4 space-y-2 text-xl font-bold text-white z-40 hidden md:hidden">
+            <div class="w-full flex flex-col items-center space-y-2">
+              <a href="#" class="block w-full text-center py-2 hover:bg-pink-600 transition-colors duration-200">Home</a>
+              <a href="#" class="block w-full text-center py-2 hover:bg-pink-600 transition-colors duration-200">Lineup</a>
+              <div class="w-full">
+                <button class="w-full text-center py-2 hover:bg-pink-600 transition-colors duration-200 flex items-center justify-center gap-2" id="tickets-toggle">
+                  Tickets
+                  <i class="fas fa-chevron-down text-sm transition-transform duration-200"></i>
+                </button>
+                <div id="tickets-submenu" class="hidden bg-pink-800">
+                  <a href="#" class="block w-full text-center py-2 hover:bg-pink-700 transition-colors duration-200">Single day ticket</a>
+                  <a href="#" class="block w-full text-center py-2 hover:bg-pink-700 transition-colors duration-200">7 day ticket</a>
+                </div>
+              </div>
+              <a href="#" class="block w-full text-center py-2 hover:bg-pink-600 transition-colors duration-200">Support</a>
             </div>
           </div>
         </nav>
@@ -127,14 +135,54 @@
       const menuToggle = document.getElementById('menu-toggle');
       const mobileMenu = document.getElementById('mobile-menu');
       const mainMenu = document.getElementById('main-menu');
+      const ticketsToggle = document.getElementById('tickets-toggle');
+      const ticketsSubmenu = document.getElementById('tickets-submenu');
+      const ticketsIcon = ticketsToggle.querySelector('i');
+
+      // Función para toggle del menú
+      function toggleMenu() {
+        if (mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.remove('hidden');
+          mobileMenu.style.display = 'flex';
+        } else {
+          mobileMenu.classList.add('hidden');
+          mobileMenu.style.display = 'none';
+        }
+      }
+
+      // Función para cerrar el menú
+      function closeMobileMenu() {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.style.display = 'none';
+        // Cerrar también el submenú de tickets
+        ticketsSubmenu.classList.add('hidden');
+        ticketsIcon.classList.remove('rotate-180');
+      }
+
+      // Event listeners
       menuToggle.addEventListener('click', function(e) {
         e.stopPropagation();
-        mobileMenu.classList.toggle('hidden');
+        toggleMenu();
       });
-      // Cerrar menú móvil al hacer click fuera
+
+      // Toggle submenú de tickets
+      ticketsToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        ticketsSubmenu.classList.toggle('hidden');
+        ticketsIcon.classList.toggle('rotate-180');
+      });
+
+      // Cerrar menú al hacer click fuera
       document.addEventListener('click', function(e) {
         if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-          mobileMenu.classList.add('hidden');
+          closeMobileMenu();
+        }
+      });
+
+      // Cerrar menú al redimensionar la ventana a desktop
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) { // md breakpoint
+          closeMobileMenu();
         }
       });
 
@@ -149,10 +197,10 @@
 
       function updateCarousel() {
         const visible = getVisible();
-        // Si estamos en móvil, siempre mostrar la primera tarjeta
-        if (visible === 1) start = 0;
-        // Si estamos en desktop y start es muy alto, reajustar
-        if (visible > 1 && start > cards.length - visible) start = Math.max(0, cards.length - visible);
+        // Si estamos en móvil y start es muy alto, reajustar
+        if (start > cards.length - visible) {
+          start = Math.max(0, cards.length - visible);
+        }
         cards.forEach((card, i) => {
           if (i >= start && i < start + visible) {
             card.classList.remove('hidden');
@@ -160,25 +208,22 @@
             card.classList.add('hidden');
           }
         });
-        // Deshabilitar flechas en móvil
-        document.getElementById('carousel-left').disabled = visible === 1;
-        document.getElementById('carousel-right').disabled = visible === 1;
-        document.getElementById('carousel-left').style.opacity = visible === 1 ? 0.5 : 1;
-        document.getElementById('carousel-right').style.opacity = visible === 1 ? 0.5 : 1;
       }
 
       document.getElementById('carousel-left').addEventListener('click', function(e) {
-        if (getVisible() > 1 && start > 0) {
+        if (start > 0) {
           start--;
           updateCarousel();
         }
       });
+
       document.getElementById('carousel-right').addEventListener('click', function(e) {
-        if (getVisible() > 1 && start < cards.length - getVisible()) {
+        if (start < cards.length - getVisible()) {
           start++;
           updateCarousel();
         }
       });
+
       window.addEventListener('resize', updateCarousel);
       updateCarousel();
     });
