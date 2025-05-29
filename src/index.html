@@ -10,33 +10,37 @@
   <body class="text-white">
     <main>
       <header>
-        <nav class="sticky top-0 flex bg-gradient-to-r from-pink-700 to-pink-400">
-          <div class="flex items-center gap-2 p-2">
+        <nav class="sticky top-0 z-50 flex bg-gradient-to-r from-pink-700 to-pink-400 items-center">
+          <div class="flex items-center gap-2 p-2 flex-shrink-0">
             <img src="/assets/images/logo-inverted.png" width="50px" alt="Logo" />
             <div class="text-2xl font-bold">
               tw:<span class="text-sky-900">mf</span>
             </div>
           </div>
-          <div class="relative flex-1 flex justify-end">
-            <div class="menu-item">
-              Home
-            </div>
-            <div class="menu-item">
-              Lineup
-            </div>
+          <!-- Menú movil  -->
+          <button id="menu-toggle" class="ml-auto mr-4 flex md:hidden text-white text-3xl focus:outline-none">
+            <span class="fas fa-bars"></span>
+          </button>
+          <!-- Menú normal (desktop) -->
+          <div class="relative flex-1 justify-end md:flex hidden" id="main-menu">
+            <div class="menu-item">Home</div>
+            <div class="menu-item">Lineup</div>
             <div class="menu-item group">
               <span>Tickets</span>
               <div class="hidden group-hover:block absolute top-full right-0 whitespace-nowrap rounded-b-lg bg-pink-500 text-right">
-                <div class="p-2 hover:bg-pink-600">
-                  <span>Single day ticket</span>
-                </div>
-                <div class="p-2 hover:bg-pink-600">
-                  <span>7 day ticket</span>
-                </div>
+                <div class="p-2 hover:bg-pink-600"><span>Single day ticket</span></div>
+                <div class="p-2 hover:bg-pink-600"><span>7 day ticket</span></div>
               </div>
             </div>
-            <div class="menu-item">
-              Support
+            <div class="menu-item">Support</div>
+          </div>
+          <!-- Menú móvil -->
+          <div id="mobile-menu" class="fixed top-0 left-0 w-full bg-gradient-to-r from-pink-700 to-pink-400 flex flex-col items-center pt-24 pb-8 space-y-6 text-xl font-bold text-white z-40 transition-all duration-300 md:hidden hidden">
+            <div class="w-full flex flex-col items-center space-y-4">
+              <a href="#" class="block">Home</a>
+              <a href="#" class="block">Lineup</a>
+              <a href="#" class="block">Tickets</a>
+              <a href="#" class="block">Support</a>
             </div>
           </div>
         </nav>
@@ -67,50 +71,50 @@
           </form>
         </div>
       </header>
-      <section class="bg-gray-100 dark:bg-gray-800 py-8 px-4">
+      <section class="bg-gray-100 dark:bg-gray-800 py-8 px-2 sm:px-4">
         <div class="max-w-6xl mx-auto">
           <h2 class="text-left text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-sky-500 mb-2">Headliners</h2>
           <p class="mb-6 text-gray-700 dark:text-gray-200">Experience the sonic delight from these made-up artists across 7 days that music fans are calling "one of the many gigs that will happen this year"</p>
-          <div class="relative flex items-center">
+          <div class="relative flex items-center justify-center">
             <!-- Flecha Izquierda -->
-            <button id="carousel-left" class="absolute left-0 z-10 bg-white dark:bg-gray-700 rounded-full p-2 shadow hover:bg-pink-500 hover:text-white transition-colors duration-200">
+            <button id="carousel-left" class="absolute left-2 z-10 bg-pink-600 text-white rounded-full p-4 sm:p-6 shadow-lg hover:bg-pink-700 hover:text-white transition-colors duration-200 top-1/2 -translate-y-1/2 text-3xl sm:text-4xl">
               <span class="fas fa-chevron-left"></span>
             </button>
             <!-- Carrusel -->
-            <div id="carousel-track" class="flex-1 flex justify-center gap-6">
+            <div id="carousel-track" class="flex flex-col sm:flex-row justify-center sm:gap-6 w-full max-w-3xl">
               <!-- Tarjeta 1 -->
-              <div class="bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-60 flex-shrink-0 flex flex-col items-center">
+              <div class="carousel-card bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-full sm:w-60 flex-shrink-0 flex flex-col items-center">
                 <img src="/assets/images/band1.jpg" alt="Artist 1" class="rounded-lg mb-2 w-full h-40 object-cover" />
                 <div class="font-bold">Corduroy Gary</div>
                 <div class="text-sm text-gray-500 dark:text-gray-300">1st July 9pm - Main Stage</div>
               </div>
               <!-- Tarjeta 2 -->
-              <div class="bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-60 flex-shrink-0 flex flex-col items-center">
+              <div class="carousel-card bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-full sm:w-60 flex-shrink-0 flex flex-col items-center">
                 <img src="/assets/images/band2.jpg" alt="Artist 2" class="rounded-lg mb-2 w-full h-40 object-cover" />
                 <div class="font-bold">Corduroy Gary</div>
                 <div class="text-sm text-gray-500 dark:text-gray-300">1st July 9pm - Main Stage</div>
               </div>
               <!-- Tarjeta 3 -->
-              <div class="bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-60 flex-shrink-0 flex flex-col items-center">
+              <div class="carousel-card bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-full sm:w-60 flex-shrink-0 flex flex-col items-center">
                 <img src="/assets/images/band3.jpg" alt="Artist 3" class="rounded-lg mb-2 w-full h-40 object-cover" />
                 <div class="font-bold">Corduroy Gary</div>
                 <div class="text-sm text-gray-500 dark:text-gray-300">1st July 9pm - Main Stage</div>
               </div>
               <!-- Tarjeta 4 -->
-              <div class="bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-60 flex-shrink-0 flex flex-col items-center hidden">
+              <div class="carousel-card bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-full sm:w-60 flex-shrink-0 flex flex-col items-center hidden">
                 <img src="/assets/images/band4.jpg" alt="Artist 4" class="rounded-lg mb-2 w-full h-40 object-cover" />
                 <div class="font-bold">Corduroy Gary</div>
                 <div class="text-sm text-gray-500 dark:text-gray-300">1st July 9pm - Main Stage</div>
               </div>
               <!-- Tarjeta 5 -->
-              <div class="bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-60 flex-shrink-0 flex flex-col items-center hidden">
+              <div class="carousel-card bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-full sm:w-60 flex-shrink-0 flex flex-col items-center hidden">
                 <img src="/assets/images/band5.jpg" alt="Artist 5" class="rounded-lg mb-2 w-full h-40 object-cover" />
                 <div class="font-bold">Corduroy Gary</div>
                 <div class="text-sm text-gray-500 dark:text-gray-300">1st July 9pm - Main Stage</div>
               </div>
             </div>
             <!-- Flecha Derecha -->
-            <button id="carousel-right" class="absolute right-0 z-10 bg-white dark:bg-gray-700 rounded-full p-2 shadow hover:bg-pink-500 hover:text-white transition-colors duration-200">
+            <button id="carousel-right" class="absolute right-2 z-10 bg-pink-600 text-white rounded-full p-4 sm:p-6 shadow-lg hover:bg-pink-700 hover:text-white transition-colors duration-200 top-1/2 -translate-y-1/2 text-3xl sm:text-4xl">
               <span class="fas fa-chevron-right"></span>
             </button>
           </div>
@@ -118,38 +122,66 @@
       </section>
     </main>
     <script>
-      // Carrusel simple: solo 3 tarjetas visibles a la vez, navegación con flechas
-      document.addEventListener('DOMContentLoaded', function() {
-        const track = document.getElementById('carousel-track');
-        const cards = Array.from(track.children);
-        let start = 0;
-        const visible = 3;
-
-        function updateCarousel() {
-          cards.forEach((card, i) => {
-            if (i >= start && i < start + visible) {
-              card.classList.remove('hidden');
-            } else {
-              card.classList.add('hidden');
-            }
-          });
-        }
-
-        document.getElementById('carousel-left').addEventListener('click', () => {
-          if (start > 0) {
-            start--;
-            updateCarousel();
-          }
-        });
-        document.getElementById('carousel-right').addEventListener('click', () => {
-          if (start < cards.length - visible) {
-            start++;
-            updateCarousel();
-          }
-        });
-
-        updateCarousel();
+    // Menú responsive
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mainMenu = document.getElementById('main-menu');
+      menuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        mobileMenu.classList.toggle('hidden');
       });
+      // Cerrar menú móvil al hacer click fuera
+      document.addEventListener('click', function(e) {
+        if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+          mobileMenu.classList.add('hidden');
+        }
+      });
+
+      // Carrusel
+      const track = document.getElementById('carousel-track');
+      const cards = Array.from(track.getElementsByClassName('carousel-card'));
+      let start = 0;
+
+      function getVisible() {
+        return window.innerWidth < 640 ? 1 : 3;
+      }
+
+      function updateCarousel() {
+        const visible = getVisible();
+        // Si estamos en móvil, siempre mostrar la primera tarjeta
+        if (visible === 1) start = 0;
+        // Si estamos en desktop y start es muy alto, reajustar
+        if (visible > 1 && start > cards.length - visible) start = Math.max(0, cards.length - visible);
+        cards.forEach((card, i) => {
+          if (i >= start && i < start + visible) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+        // Deshabilitar flechas en móvil
+        document.getElementById('carousel-left').disabled = visible === 1;
+        document.getElementById('carousel-right').disabled = visible === 1;
+        document.getElementById('carousel-left').style.opacity = visible === 1 ? 0.5 : 1;
+        document.getElementById('carousel-right').style.opacity = visible === 1 ? 0.5 : 1;
+      }
+
+      document.getElementById('carousel-left').addEventListener('click', function(e) {
+        if (getVisible() > 1 && start > 0) {
+          start--;
+          updateCarousel();
+        }
+      });
+      document.getElementById('carousel-right').addEventListener('click', function(e) {
+        if (getVisible() > 1 && start < cards.length - getVisible()) {
+          start++;
+          updateCarousel();
+        }
+      });
+      window.addEventListener('resize', updateCarousel);
+      updateCarousel();
+    });
     </script>
   </body>
 </html> 
