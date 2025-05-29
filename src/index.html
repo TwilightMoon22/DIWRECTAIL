@@ -10,7 +10,7 @@
   <body class="text-white">
     <main>
       <header>
-        <nav class="sticky top-0 flex bg-gradient-to-r from-pink-700 to-pink-200">
+        <nav class="sticky top-0 flex bg-gradient-to-r from-pink-700 to-pink-400">
           <div class="flex items-center gap-2 p-2">
             <img src="/assets/images/logo-inverted.png" width="50px" alt="Logo" />
             <div class="text-2xl font-bold">
@@ -67,6 +67,89 @@
           </form>
         </div>
       </header>
+      <section class="bg-gray-100 dark:bg-gray-800 py-8 px-4">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="text-left text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-sky-500 mb-2">Headliners</h2>
+          <p class="mb-6 text-gray-700 dark:text-gray-200">Experience the sonic delight from these made-up artists across 7 days that music fans are calling "one of the many gigs that will happen this year"</p>
+          <div class="relative flex items-center">
+            <!-- Flecha Izquierda -->
+            <button id="carousel-left" class="absolute left-0 z-10 bg-white dark:bg-gray-700 rounded-full p-2 shadow hover:bg-pink-500 hover:text-white transition-colors duration-200">
+              <span class="fas fa-chevron-left"></span>
+            </button>
+            <!-- Carrusel -->
+            <div id="carousel-track" class="flex-1 flex justify-center gap-6">
+              <!-- Tarjeta 1 -->
+              <div class="bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-60 flex-shrink-0 flex flex-col items-center">
+                <img src="/assets/images/band1.jpg" alt="Artist 1" class="rounded-lg mb-2 w-full h-40 object-cover" />
+                <div class="font-bold">Corduroy Gary</div>
+                <div class="text-sm text-gray-500 dark:text-gray-300">1st July 9pm - Main Stage</div>
+              </div>
+              <!-- Tarjeta 2 -->
+              <div class="bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-60 flex-shrink-0 flex flex-col items-center">
+                <img src="/assets/images/band2.jpg" alt="Artist 2" class="rounded-lg mb-2 w-full h-40 object-cover" />
+                <div class="font-bold">Corduroy Gary</div>
+                <div class="text-sm text-gray-500 dark:text-gray-300">1st July 9pm - Main Stage</div>
+              </div>
+              <!-- Tarjeta 3 -->
+              <div class="bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-60 flex-shrink-0 flex flex-col items-center">
+                <img src="/assets/images/band3.jpg" alt="Artist 3" class="rounded-lg mb-2 w-full h-40 object-cover" />
+                <div class="font-bold">Corduroy Gary</div>
+                <div class="text-sm text-gray-500 dark:text-gray-300">1st July 9pm - Main Stage</div>
+              </div>
+              <!-- Tarjeta 4 -->
+              <div class="bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-60 flex-shrink-0 flex flex-col items-center hidden">
+                <img src="/assets/images/band4.jpg" alt="Artist 4" class="rounded-lg mb-2 w-full h-40 object-cover" />
+                <div class="font-bold">Corduroy Gary</div>
+                <div class="text-sm text-gray-500 dark:text-gray-300">1st July 9pm - Main Stage</div>
+              </div>
+              <!-- Tarjeta 5 -->
+              <div class="bg-white dark:bg-gray-900 rounded-lg shadow p-4 w-60 flex-shrink-0 flex flex-col items-center hidden">
+                <img src="/assets/images/band5.jpg" alt="Artist 5" class="rounded-lg mb-2 w-full h-40 object-cover" />
+                <div class="font-bold">Corduroy Gary</div>
+                <div class="text-sm text-gray-500 dark:text-gray-300">1st July 9pm - Main Stage</div>
+              </div>
+            </div>
+            <!-- Flecha Derecha -->
+            <button id="carousel-right" class="absolute right-0 z-10 bg-white dark:bg-gray-700 rounded-full p-2 shadow hover:bg-pink-500 hover:text-white transition-colors duration-200">
+              <span class="fas fa-chevron-right"></span>
+            </button>
+          </div>
+        </div>
+      </section>
     </main>
+    <script>
+      // Carrusel simple: solo 3 tarjetas visibles a la vez, navegación con flechas
+      document.addEventListener('DOMContentLoaded', function() {
+        const track = document.getElementById('carousel-track');
+        const cards = Array.from(track.children);
+        let start = 0;
+        const visible = 3;
+
+        function updateCarousel() {
+          cards.forEach((card, i) => {
+            if (i >= start && i < start + visible) {
+              card.classList.remove('hidden');
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+        }
+
+        document.getElementById('carousel-left').addEventListener('click', () => {
+          if (start > 0) {
+            start--;
+            updateCarousel();
+          }
+        });
+        document.getElementById('carousel-right').addEventListener('click', () => {
+          if (start < cards.length - visible) {
+            start++;
+            updateCarousel();
+          }
+        });
+
+        updateCarousel();
+      });
+    </script>
   </body>
 </html> 
